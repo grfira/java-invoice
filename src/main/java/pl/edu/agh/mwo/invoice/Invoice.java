@@ -28,7 +28,7 @@ public class Invoice {
         }
     }
 
-    public BigDecimal getNetPrice() {
+    public BigDecimal getSubtotal() {
         return products
                 .entrySet()
                 .stream()
@@ -46,7 +46,7 @@ public class Invoice {
                 .reduce(BigDecimal.ZERO, (a, b) -> a.add(b));
     }
 
-    public BigDecimal getGrossPrice() {
+    public BigDecimal getTotal() {
         return products
                 .entrySet()
                 .stream()
