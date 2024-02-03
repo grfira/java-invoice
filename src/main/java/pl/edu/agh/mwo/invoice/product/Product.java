@@ -15,6 +15,7 @@ public abstract class Product {
         }
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty!");
+
         }
         this.name = name;
         this.price = price;
