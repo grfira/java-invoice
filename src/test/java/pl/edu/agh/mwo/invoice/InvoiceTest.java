@@ -131,14 +131,16 @@ public class InvoiceTest {
         Invoice invoice = new Invoice();
         int number = invoice.getNumber();
     }
+
     @Test
-    public void testInvoiceNumberIsGreaterThan(){
-    Assert.assertTrue(new Invoice().getNumber()>0);
+    public void testInvoiceNumberIsGreaterThan() {
+        Assert.assertTrue(new Invoice().getNumber() > 0);
     }
+
     @Test
-    public void testInvoiceOfSecondInvoiceNumberIsGreaterThanPrevious(){
+    public void testInvoiceOfSecondInvoiceNumberIsGreaterThanPrevious() {
         int n1 = new Invoice().getNumber();
         int n2 = new Invoice().getNumber();
-        Assert.assertThat(n2,Matchers.greaterThan(n1));
+        Assert.assertThat(n2, Matchers.greaterThan(n1));
     }
 }
