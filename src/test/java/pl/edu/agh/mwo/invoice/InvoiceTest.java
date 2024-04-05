@@ -173,4 +173,27 @@ public class InvoiceTest {
 
         Assert.assertEquals(expectedText, invoiceToPrint);
     }
+
+    @Test
+    public void testInvoiceAsTextToPrintWithoutDoublingDifferentProducts() {
+
+        Product prod_sausage = new OtherProduct("Kiełbasa wyborcza", BigDecimal.valueOf(100));
+        Product prod_ham = new TaxFreeProduct("Szynka królewska", BigDecimal.valueOf(200));
+        invoice.addProduct(prod_sausage, 5);
+        invoice.addProduct(prod_ham, 2);
+        invoice.addProduct(prod_sausage, 7);
+        invoice.addProduct(prod_ham, 1);
+        String expectedText = String
+                .format("Invoice Number: %d\n%s\t%d\t%.2f zł\n%s\t%d\t%.2f zł\nTotal number of items: %d",
+                        invoice.getNumber(),
+                        "Szynka królewska", 2 + 1,
+                        prod_ham.getPriceWithTax().multiply(BigDecimal.valueOf(2 + 1)),
+                        "Kiełbasa wyborcza", 5 + 7,
+                        prod_sausage.getPriceWithTax().multiply(BigDecimal.valueOf(5 + 7)),
+                        5 + 7 + 2 + 1);
+
+        String invoiceToPrint = invoice.getInvoiceToPrint();
+
+        Assert.assertEquals(expectedText, invoiceToPrint);
+    }
 }
