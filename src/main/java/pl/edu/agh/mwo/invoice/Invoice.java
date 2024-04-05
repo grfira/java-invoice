@@ -55,15 +55,14 @@ public class Invoice {
     }
 
     public String getInvoiceToPrint() {
-        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.getDefault());
         StringBuilder str = new StringBuilder("Invoice Number: ");
         str.append(this.getNumber()).append("\n");
         products.forEach((product, quantity) -> str.append(product.getName())
                 .append("\t")
                 .append(quantity)
                 .append("\t")
-                .append(format.format(product.getPriceWithTax().multiply(new BigDecimal(quantity))))
-                .append("\n"));
+                .append(String.format("%.2f",product.getPriceWithTax().doubleValue()*quantity))
+                .append(" zł\n"));
         int totalNumber = products.values().stream().reduce(0, (x, y) -> x + y);
         str.append("Total number of items: ").append(totalNumber);
 

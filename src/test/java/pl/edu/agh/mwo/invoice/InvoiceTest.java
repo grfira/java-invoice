@@ -150,7 +150,7 @@ public class InvoiceTest {
         int productQuantity = 5;
         Product product = new OtherProduct(productName, BigDecimal.valueOf(100));
         invoice.addProduct(product, productQuantity);
-        String expectedText = String.format("Invoice Number: %d\n%s\t%d\t%.2f zł\nTotal number of items: %d",
+        String expectedText = String.format("Invoice Number: %d\n%s\t%d\t%.2f zł\nTotal number of items: %d",
                 invoice.getNumber(), productName, productQuantity,
                 product.getPriceWithTax().multiply(BigDecimal.valueOf(productQuantity)), productQuantity);
 
