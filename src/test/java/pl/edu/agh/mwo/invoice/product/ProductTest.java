@@ -1,12 +1,10 @@
 package pl.edu.agh.mwo.invoice.product;
 
-import java.math.BigDecimal;
-
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 
-import pl.edu.agh.mwo.invoice.product.Product;
+import java.math.BigDecimal;
 
 public class ProductTest {
     @Test
@@ -53,5 +51,21 @@ public class ProductTest {
     @Test(expected = IllegalArgumentException.class)
     public void testProductWithNegativePrice() {
         new TaxFreeProduct("Mandarynki", new BigDecimal("-1.00"));
+    }
+
+    @Test
+    public void testProductWithExcise() {
+        Product prod_vodka = new ExciseProduct("Wódka", new BigDecimal(30),
+                new BigDecimal("5.56"), false);
+        Assert.assertThat(new BigDecimal("42.46"), Matchers.comparesEqualTo(prod_vodka.getPriceWithTax()));
+        Assert.assertThat(new BigDecimal("0.23"), Matchers.comparesEqualTo(prod_vodka.getTaxPercent()));
+    }
+
+    @Test
+    public void testProductWithExciseAndAbolition() {
+        Product prod_vodka = new ExciseProduct("Wódka Ojczysta", new BigDecimal(30),
+                new BigDecimal("5.56"), true);
+        Assert.assertThat(new BigDecimal("35.56"), Matchers.comparesEqualTo(prod_vodka.getPriceWithTax()));
+        Assert.assertThat(new BigDecimal("0.00"), Matchers.comparesEqualTo(prod_vodka.getTaxPercent()));
     }
 }
