@@ -142,4 +142,19 @@ public class InvoiceTest {
         int n2 = new Invoice().getNumber();
         Assert.assertThat(n2, Matchers.greaterThan(n1));
     }
+    @Test
+    public void testInvoiceAsTextToPrint(){
+
+        String productName = "Kiełbasa wyborcza";
+        BigDecimal productPrice= new BigDecimal("100");
+        int productQuantity=5;
+        Product product = new OtherProduct(productName,productPrice);
+        invoice.addProduct(product,productQuantity);
+        String expectedText= String.format("Invoice Number: %d\n%s\t%d\t%.2f zł\nTotal number of items: %d",invoice.getNumber(), productName,
+                productQuantity,product.getPriceWithTax().multiply(BigDecimal.valueOf(productQuantity)), productQuantity);
+
+        String invoiceToPrint = invoice.getInvoiceToPrint();
+
+        Assert.assertEquals(expectedText,invoiceToPrint);
+    }
 }
