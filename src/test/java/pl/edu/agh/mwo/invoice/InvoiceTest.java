@@ -158,4 +158,19 @@ public class InvoiceTest {
 
         Assert.assertEquals(expectedText, invoiceToPrint);
     }
+
+    @Test
+    public void testInvoiceAsTextToPrintWithoutDoubling() {
+        String productName = "Kiełbasa wyborcza";
+        Product product = new OtherProduct(productName, BigDecimal.valueOf(100));
+        invoice.addProduct(product, 5);
+        invoice.addProduct(product, 7);
+        String expectedText = String.format("Invoice Number: %d\n%s\t%d\t%.2f zł\nTotal number of items: %d",
+                invoice.getNumber(), productName, 5 + 7,
+                product.getPriceWithTax().multiply(BigDecimal.valueOf(5 + 7)), 5 + 7);
+
+        String invoiceToPrint = invoice.getInvoiceToPrint();
+
+        Assert.assertEquals(expectedText, invoiceToPrint);
+    }
 }
