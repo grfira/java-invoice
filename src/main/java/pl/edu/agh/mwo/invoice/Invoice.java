@@ -61,7 +61,7 @@ public class Invoice {
                 .append("\t")
                 .append(quantity)
                 .append("\t")
-                .append(String.format("%.2f",product.getPriceWithTax().doubleValue()*quantity))
+                .append(String.format("%.2f", product.getPriceWithTax().doubleValue() * quantity))
                 .append(" zł\n"));
         int totalNumber = products.values().stream().reduce(0, (x, y) -> x + y);
         str.append("Total number of items: ").append(totalNumber);
