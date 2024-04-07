@@ -55,17 +55,15 @@ public class ProductTest {
 
     @Test
     public void testProductWithExcise() {
-        Product prod_vodka = new ExciseProduct("Wódka", new BigDecimal(30),
-                new BigDecimal("5.56"), false);
-        Assert.assertThat(new BigDecimal("42.46"), Matchers.comparesEqualTo(prod_vodka.getPriceWithTax()));
-        Assert.assertThat(new BigDecimal("0.23"), Matchers.comparesEqualTo(prod_vodka.getTaxPercent()));
+        Product prod_wine = new BottleOfWineProduct("Komandos STRONG", new BigDecimal(30));
+        Assert.assertThat(new BigDecimal("42.46"), Matchers.comparesEqualTo(prod_wine.getPriceWithTax()));
+        Assert.assertThat(new BigDecimal("0.23"), Matchers.comparesEqualTo(prod_wine.getTaxPercent()));
     }
 
     @Test
     public void testProductWithExciseAndAbolition() {
-        Product prod_vodka = new ExciseProduct("Wódka Ojczysta", new BigDecimal(30),
-                new BigDecimal("5.56"), true);
-        Assert.assertThat(new BigDecimal("35.56"), Matchers.comparesEqualTo(prod_vodka.getPriceWithTax()));
-        Assert.assertThat(new BigDecimal("0.00"), Matchers.comparesEqualTo(prod_vodka.getTaxPercent()));
+        Product prod_fuel = new FuelCanisterProduct("Benzyna 95", new BigDecimal("6.78"));
+        Assert.assertThat(new BigDecimal("6.78"), Matchers.comparesEqualTo(prod_fuel.getPriceWithTax()));
+        Assert.assertThat(new BigDecimal("0.00"), Matchers.comparesEqualTo(prod_fuel.getTaxPercent()));
     }
 }
